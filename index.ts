@@ -1,4 +1,5 @@
 import { SingleKeyRecord } from "./SingleKeyRecord";
+import { uniqueKey } from "./unique-key";
 
 
 const storageSetters = {};
@@ -13,7 +14,7 @@ type Persist = <K extends string>(namedReducer: SingleKeyRecord<K, any>, options
 export const persist: Persist = (namedReducer, { storageKey = undefined, msDebounce = 1000 } = {}) => {
   const [[sliceName, reducer]] = Object.entries(namedReducer);
 
-  storageKey ??= sliceName; // default storageKey is sliceName
+  storageKey ??= uniqueKey(sliceName);
 
   storageSetters[sliceName] = debouncify({ ms: msDebounce }, (slice) => {
     localStorage.setItem(storageKey, JSON.stringify(slice));

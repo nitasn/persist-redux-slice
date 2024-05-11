@@ -17,7 +17,7 @@ import mySlice from "./mySlice";
 
 export const store = configureStore({
   reducer: {
-    mySlice: persist({ mySlice }, { storageKey: "my-unique-key" }),
+    mySlice: persist({ mySlice }),
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat(persistanceMiddleware);
@@ -29,14 +29,12 @@ store.dispatch(LoadSlicesFromLocalStorage);
 ```
 
 ##  Options
+`persist` can take a second `options` object.
 * `msDebounce`: Slices are written to localStorage after a period of inactivity, to prevent rapid subsequent writes. Defaults to 1000ms.
-* `storageKey`: A unique key in localStorage. Defaults to the name of the slice.
+* `storageKey`: A unique key in localStorage. Defaults to the name of the slice concatenated with a hash.
 
 ```javascript
-persist({ mySlice }, { storageKey: "my-unique-key", msDebounce: 1500 });
-
-// defaults to { storageKey: "mySlice", msDebounce: 1000 }
-persist({ mySlice });
+persist({ mySlice }, { msDebounce: 1500, storageKey: "my-unique-key" });
 ```
 
 ## Installation
