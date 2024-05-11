@@ -9,7 +9,7 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import { 
   persist, 
-  persistanceMiddleware, 
+  persistenceMiddleware, 
   LoadSlicesFromLocalStorage 
 } from "persist-redux-slice";
 
@@ -20,7 +20,7 @@ export const store = configureStore({
     mySlice: persist({ mySlice }),
   },
   middleware: (getDefaultMiddleware) => {
-    return getDefaultMiddleware().concat(persistanceMiddleware);
+    return getDefaultMiddleware().concat(persistenceMiddleware);
   },
 });
 

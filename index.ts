@@ -29,7 +29,7 @@ export const persist: Persist = (namedReducer, { storageKey = undefined, msDebou
   };
 }
 
-export const persistanceMiddleware: any = (store) => (next) => (action) => {
+export const persistenceMiddleware: any = (store) => (next) => (action) => {
   const ret = next(action);
 
   const [sliceName] = action.type.split("/");
