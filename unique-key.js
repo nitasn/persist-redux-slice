@@ -1,7 +1,7 @@
 // source: https://stackoverflow.com/a/52171480/8339960
-const cyrb53 = (str: string, seed = 0) => {
+const cyrb53 = (str, seed = 0) => {
   let h1 = 0xdeadbeef ^ seed, h2 = 0x41c6ce57 ^ seed;
-  for (let i = 0, ch: number; i < str.length; i++) {
+  for (let i = 0, ch; i < str.length; i++) {
     ch = str.charCodeAt(i);
     h1 = Math.imul(h1 ^ ch, 2654435761);
     h2 = Math.imul(h2 ^ ch, 1597334677);
@@ -15,16 +15,17 @@ const cyrb53 = (str: string, seed = 0) => {
 };
 
 // source: https://stackoverflow.com/a/64072170/8339960
-const digit = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz+$";
-const toB64 = (num: number) => {
-  return num
+const alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz+$";
+const toBase64 = (number) => {
+  return number
     .toString(2) // binary repr
     .split(/(?=(?:.{6})+(?!.))/g) // groups of 6 bits
-    .map((v) => digit[parseInt(v, 2)]) // map to 
+    .map((g) => alphabet[parseInt(g, 2)]) // each group -> one b64 character
     .join("");
 }
 
 const seed = cyrb53("persist-redux-storage");
-export const uniqueKey = (sliceName: string) => {
-  return `${sliceName}.${toB64(cyrb53(sliceName, seed))}`;
+export const uniqueKey = (sliceName) => {
+  const hashNumber = cyrb53(sliceName, seed);
+  return `${sliceName}.${toBase64(hashNumber)}`;
 };

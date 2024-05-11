@@ -1,17 +1,9 @@
-import { SingleKeyRecord } from "./SingleKeyRecord";
 import { uniqueKey } from "./unique-key";
-
 
 const storageSetters = {};
 
-interface Options {
-  storageKey?: string;
-  msDebounce?: number;
-}
 
-type Persist = <K extends string>(namedReducer: SingleKeyRecord<K, any>, options?: Options) => any;
-
-export const persist: Persist = (namedReducer, { storageKey = undefined, msDebounce = 1000 } = {}) => {
+export const persist = (namedReducer, { storageKey = undefined, msDebounce = 1000 } = {}) => {
   const [[sliceName, reducer]] = Object.entries(namedReducer);
 
   storageKey ??= uniqueKey(sliceName);
@@ -29,7 +21,7 @@ export const persist: Persist = (namedReducer, { storageKey = undefined, msDebou
   };
 }
 
-export const persistenceMiddleware: any = (store) => (next) => (action) => {
+export const persistenceMiddleware = (store) => (next) => (action) => {
   const ret = next(action);
 
   const [sliceName] = action.type.split("/");
