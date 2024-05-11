@@ -1,0 +1,13 @@
+{
+  "name": "persist-redux-slice",
+  "version": "1.0.1",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {},
+  "author": "Nitsan BenHanoch",
+  "license": "ISC",
+  "dependencies": {
+    "@reduxjs/toolkit": "^2.2.4"
+  },
+  "keywords": ["reduxjs", "@reduxjs/toolkit", "localStorage", "persistence"]
+}
