@@ -27,6 +27,17 @@ export const store = configureStore({
 store.dispatch(LoadSlicesFromLocalStorage);
 ```
 
+```javascript
+// mySlice.js
+
+const mySlice = createSlice({
+  name: "mySlice",
+  initialState: { },
+  reducers: { },
+});
+
+export default mySlice.reducer;
+```
 ##  Options
 `persist` can take a second `options` object.
 * `msDebounce`: Slices are written to localStorage after a period of inactivity, to prevent rapid subsequent writes. Defaults to 1000ms.
@@ -76,13 +87,11 @@ But you can also import a reducer by a different name:
 // store.js
 
 import counterReducer from "./slices/counterSlice.js";
-//       ↑
-// (NOT the slice name)
 
 export const store = configureStore({
   reducer: {
+    // specify slice name ↓
     counter: persist({ counter: counterReducer }),
-    // specify slice name ↑
   },
   // ...
 });
