@@ -7,6 +7,7 @@ export interface Options {
 
 /**
  * Automatically persist a redux slice in localStorage.
+ * 
  * ## Usage
  * ```
  * export const store = configureStore({
@@ -20,8 +21,12 @@ export interface Options {
  * 
  * store.dispatch(LoadSlicesFromLocalStorage);
  * ```
- * ## Options
- * `persist` can take a second `options` object, with keys `msDebounce` (defaults to 1000), and `storageKey` (defaults to the name of the slice, concatenated with a hash).
+ * ## Arguments
+ * 
+ * @param namedReducer - An object. **Key** - slice's regisrered name, **Value** - slice's reducer.
+ * @param options - An (optional) object with keys `msDebounce` (defaults to 1000), and/or `storageKey` (defaults to the slice name concatenated with a hash).
+ * 
+ * See [NPM Page](https://www.npmjs.com/package/persist-redux-slice) for more info.
  */
 export const persist: <K extends string>(namedReducer: SingleKeyRecord<K, any>, options?: Options) => any;
 

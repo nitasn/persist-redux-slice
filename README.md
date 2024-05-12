@@ -38,33 +38,33 @@ persist({ mySlice }, { msDebounce: 1500, storageKey: "my-unique-key" });
 
 ## Reducer Name
 
-`persist` expects its first object's key to be the reducer name. In the above code, the reducer was imported by its name, as registered in the slice.
+In `persist`'s first object, **the key should be a slice's name**, and the value is its reducer.
 
-**For Example** - Say you name a reducer "cssVars":
+For example, consider a slice named "counter":
 
 ```javascript
-// slices/cssVars.js
+// slices/counterSlice.js
 
-const cssVars = createSlice({
-  name: "cssVars", // <------------- reducer's name is "cssVars"
+const counterSlice = createSlice({
+  name: "counter", // <--------- slice name is "counter"
   initialState: {},
-  reducers: {
-    // ...
-  },
+  reducers: {},
 });
 
-export default cssVars.reducer;
+export default counterSlice.reducer;
 ```
 
-It's easier to *import a reducer by its name*:
+It's easiest to *import a reducer by its name*:
 ```javascript
 // store.js
 
-import cssVars from "./slices/cssVars.js"; // <-- imported as "cssVars"
+import counter from "./slices/counterSlice.js";
+//       ↑
+// (same as slice name)
 
 export const store = configureStore({
   reducer: {
-    cssVars: persist({ cssVars }),
+    counter: persist({ counter }),
   },
   // ...
 });
@@ -75,12 +75,14 @@ But you can also import a reducer by a different name:
 ```javascript
 // store.js
 
-import cv from "./slices/cssVars.js"; // <-- imported as "cv"
+import counterReducer from "./slices/counterSlice.js";
+//       ↑
+// (NOT the slice name)
 
 export const store = configureStore({
   reducer: {
-    // the reducer's name ↓
-    cssVars: persist({ cssVars: cv }),
+    counter: persist({ counter: counterReducer }),
+    // specify slice name ↑
   },
   // ...
 });
