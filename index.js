@@ -15,7 +15,7 @@ export const persist = (namedReducer, { storageKey = undefined, msDebounce = 100
   return (slice, action) => {
     if (action.type === LoadSlicesFromLocalStorage.type) {
       const storage = localStorage.getItem(storageKey);
-      return storage !== null ? JSON.parse(storage) : slice;
+      return storage != null ? JSON.parse(storage) : slice;
     }
     return reducer(slice, action);
   };
