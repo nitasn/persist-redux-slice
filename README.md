@@ -40,8 +40,6 @@ persist({ mySlice }, { msDebounce: 1500, storageKey: "my-unique-key" });
 
 `persist` expects its first object's key to be the reducer name. In the above code, the reducer was imported by its name, as registered in the slice.
 
-**To import a reducer by a different name**, use the reducer's registered name as the key in the object you pass to `persist`.
-
 **For Example** - Say you name a reducer "cssVars":
 
 ```javascript
@@ -58,7 +56,7 @@ const cssVars = createSlice({
 export default cssVars.reducer;
 ```
 
-It's easier to *import a reducer by its registered name*:
+It's easier to *import a reducer by its name*:
 ```javascript
 // store.js
 
