@@ -25,7 +25,6 @@ export const store = configureStore({
 });
 
 store.dispatch(LoadSlicesFromLocalStorage);
-
 ```
 
 ##  Options
@@ -37,8 +36,54 @@ store.dispatch(LoadSlicesFromLocalStorage);
 persist({ mySlice }, { msDebounce: 1500, storageKey: "my-unique-key" });
 ```
 
-## Installation
-```bash
-npm install persist-redux-slice
+## Reducer Name
+
+`persist` expects its first object's key to be the reducer name. In the above code, the reducer was imported by its name, as registered in the slice.
+
+**To import a reducer by a different name**, use the reducer's registered name as the key in the object you pass to `persist`.
+
+**For Example** - Say you name a reducer "cssVars":
+
+```javascript
+// slices/cssVars.js
+
+const cssVars = createSlice({
+  name: "cssVars", // <------------- reducer's name is "cssVars"
+  initialState: {},
+  reducers: {
+    // ...
+  },
+});
+
+export default cssVars.reducer;
 ```
 
+It's easier to *import a reducer by its registered name*:
+```javascript
+// store.js
+
+import cssVars from "./slices/cssVars.js"; // <-- imported as "cssVars"
+
+export const store = configureStore({
+  reducer: {
+    cssVars: persist({ cssVars }),
+  },
+  // ...
+});
+```
+
+But you can also import a reducer by a different name:
+
+```javascript
+// store.js
+
+import cv from "./slices/cssVars.js"; // <-- imported as "cv"
+
+export const store = configureStore({
+  reducer: {
+    // the reducer's name ↓
+    cssVars: persist({ cssVars: cv }),
+  },
+  // ...
+});
+```
