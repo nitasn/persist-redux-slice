@@ -13,11 +13,11 @@ import {
   LoadSlicesFromLocalStorage 
 } from "persist-redux-slice";
 
-import mySlice from "./mySlice";
+import counterReducer from "./slices/counter.js";
 
 export const store = configureStore({
   reducer: {
-    mySlice: persist({ mySlice }),
+    counter: persist({ counter: counterReducer }),
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat(persistenceMiddleware);
@@ -28,15 +28,15 @@ store.dispatch(LoadSlicesFromLocalStorage);
 ```
 
 ```javascript
-// mySlice.js
+// slices/counter.js
 
-const mySlice = createSlice({
-  name: "mySlice",
+const slice = createSlice({
+  name: "counter",
   initialState: { },
   reducers: { },
 });
 
-export default mySlice.reducer;
+export default slice.reducer;
 ```
 ##  Options
 `persist` can take a second `options` object.
@@ -44,7 +44,10 @@ export default mySlice.reducer;
 * `storageKey`: A unique key in localStorage. Defaults to the name of the slice concatenated with a hash.
 
 ```javascript
-persist({ mySlice }, { msDebounce: 1500, storageKey: "my-unique-key" });
+persist(
+  { counter: counterReducer }, 
+  { msDebounce: 1500, storageKey: "my-unique-key" }
+);
 ```
 
 ## Reducer Name
