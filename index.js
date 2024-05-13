@@ -2,7 +2,6 @@ import { uniqueKey } from "./unique-key";
 
 const storageSetters = {};
 
-
 export const persist = (namedReducer, { storageKey = undefined, msDebounce = 250 } = {}) => {
   const [[sliceName, reducer]] = Object.entries(namedReducer);
 
@@ -19,18 +18,21 @@ export const persist = (namedReducer, { storageKey = undefined, msDebounce = 250
     }
     return reducer(slice, action);
   };
-}
+};
 
 export const persistenceMiddleware = (store) => (next) => (action) => {
-  const ret = next(action);
-
   const [sliceName] = action.type.split("/");
 
-  if (sliceName in storageSetters) {
-    const slice = store.getState()[sliceName];
-    storageSetters[sliceName](slice);
-  }
+  const oldSlice = store.getState()[sliceName];
 
+  const ret = next(action);
+
+  const newSlice = store.getState()[sliceName];
+
+  if (newSlice != oldSlice && sliceName in storageSetters) {
+    storageSetters[sliceName](newSlice);
+  }
+  
   return ret;
 };
 
