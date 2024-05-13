@@ -3,7 +3,7 @@ import { uniqueKey } from "./unique-key";
 const storageSetters = {};
 
 
-export const persist = (namedReducer, { storageKey = undefined, msDebounce = 1000 } = {}) => {
+export const persist = (namedReducer, { storageKey = undefined, msDebounce = 250 } = {}) => {
   const [[sliceName, reducer]] = Object.entries(namedReducer);
 
   storageKey ??= uniqueKey(sliceName);

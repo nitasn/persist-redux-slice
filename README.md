@@ -40,7 +40,7 @@ export default mySlice.reducer;
 ```
 ##  Options
 `persist` can take a second `options` object.
-* `msDebounce`: Slices are written to localStorage after a period of inactivity, to prevent rapid subsequent writes. Defaults to 1000ms.
+* `msDebounce`: Slices are written to localStorage after a period of inactivity, to prevent rapid subsequent writes. Defaults to 250ms.
 * `storageKey`: A unique key in localStorage. Defaults to the name of the slice concatenated with a hash.
 
 ```javascript

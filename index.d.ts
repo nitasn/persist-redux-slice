@@ -24,7 +24,7 @@ export interface Options {
  * ## Arguments
  * 
  * @param namedReducer - An object. **Key** - slice's regisrered name, **Value** - slice's reducer.
- * @param options - An (optional) object with keys `msDebounce` (defaults to 1000), and/or `storageKey` (defaults to the slice name concatenated with a hash).
+ * @param options - An (optional) object with keys `msDebounce` (defaults to 250), and/or `storageKey` (defaults to the slice name concatenated with a hash).
  * 
  * See [NPM Page](https://www.npmjs.com/package/persist-redux-slice) for more info.
  */
