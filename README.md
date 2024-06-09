@@ -68,7 +68,7 @@ const counterSlice = createSlice({
 export default counterSlice.reducer;
 ```
 
-It's easiest to *import a reducer by its name*:
+It's **easiest** to *import a reducer by its name*:
 ```javascript
 // store.js
 
@@ -84,7 +84,7 @@ export const store = configureStore({
 });
 ```
 
-But you can also import a reducer by a different name:
+**Alternatively** you can import a reducer by a different name:
 
 ```javascript
 // store.js
